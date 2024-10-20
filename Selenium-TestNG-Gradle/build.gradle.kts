@@ -16,10 +16,10 @@ dependencies {
     testImplementation("org.testng:testng:7.10.2")
     // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     implementation("io.github.bonigarcia:webdrivermanager:5.8.0")
-
-
 }
 
 tasks.test {
-    useTestNG()
+    useTestNG() {
+        suites("src/test/resources/TestNG.xml");
+    }
 }

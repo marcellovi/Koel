@@ -26,17 +26,27 @@ public class PlaylistPageFactory extends BasePageFactory{
     @FindBy(xpath = "//select[@name=\"model[]\"]")
     WebElement smartPlaylistFirstCriteriaField;
 
+    @FindBy(xpath = "//div[@data-test=\"smart-playlist-rule-row\"][2]//select[@name=\"model[]\"]")
+    WebElement smartPlaylistFirstCriteriaFieldRow2;
+
+    @FindBy(xpath = "//div[@data-test=\"smart-playlist-rule-row\"][2]//input[@name=\"value[]\"]")
+    WebElement smartPlaylistThirdCriteriaFieldRow2;
+
     @FindBy(xpath = "//input[@name='value[]']")
     WebElement smartPlaylistThirdCriteriaField;
 
     @FindBy(xpath = "//footer//button[@type='submit']")
     WebElement smartPlaylistSaveButton;
 
+    @FindBy(css = "button.btn-add-rule")
+    WebElement smartPlaylistAddRuleButton;
+
     @FindBy(xpath = "//div[@class=\"alertify-logs top right\"]")
     WebElement smartPlaylistSuccessInfoMsg;
 
     public PlaylistPageFactory clickAddPlaylistButton(){
-        btnPlusIcon.click();
+        wait.until(ExpectedConditions.visibilityOf(btnPlusIcon)).click();
+        //btnPlusIcon.click();
         return this;
     }
 
@@ -58,13 +68,29 @@ public class PlaylistPageFactory extends BasePageFactory{
         return this;
     }
 
-    public PlaylistPageFactory inputSmartPlayThirdCriteriaField(String text){
+    public PlaylistPageFactory selectSmartPlaylistFirstCriteriaRow2(String option){
+        Select select = new Select(smartPlaylistFirstCriteriaFieldRow2);
+        select.selectByVisibleText(option);
+        return this;
+    }
+
+    public PlaylistPageFactory inputSmartPlaylistThirdCriteriaField(String text){
         smartPlaylistThirdCriteriaField.sendKeys(text);
         return this;
     }
 
-    public PlaylistPageFactory clickSmartPlaySaveButton(){
+    public PlaylistPageFactory inputSmartPlaylistThirdCriteriaFieldRow2(String text){
+        smartPlaylistThirdCriteriaFieldRow2.sendKeys(text);
+        return this;
+    }
+
+    public PlaylistPageFactory clickSmartPlaylistSaveButton(){
         smartPlaylistSaveButton.click();
+        return this;
+    }
+
+    public PlaylistPageFactory clickSmartPlaylistAddRule(){
+        smartPlaylistAddRuleButton.click();
         return this;
     }
 

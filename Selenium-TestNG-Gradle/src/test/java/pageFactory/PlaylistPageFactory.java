@@ -46,6 +46,11 @@ public class PlaylistPageFactory extends BasePageFactory{
 
     @FindBy(xpath = "//button[@class=\"remove-rule\"]")
     WebElement smartPlayListRemoveButton;
+
+    // Label when Smart Playlist didn't find any match songs //
+    @FindBy(xpath = "//div[contains(text(),'No songs match')]")
+    WebElement noSongsMatchDivText;
+
     /** New Smart Playlist [ Group Criteria ] **/
 
     @FindBy(css = "button.btn-add-group")
@@ -117,6 +122,10 @@ public class PlaylistPageFactory extends BasePageFactory{
         //return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"alertify-logs top right\"]")));
     }
 
+    public WebElement emptyNoSongsMatchDivText(){
+        return wait.until(ExpectedConditions.visibilityOf(noSongsMatchDivText));
+    }
+
     public PlaylistPageFactory clickSmartPlaylistRemoveButton(){
         wait.until(ExpectedConditions.elementToBeClickable(smartPlayListRemoveButton)).click();
         return this;
@@ -125,6 +134,8 @@ public class PlaylistPageFactory extends BasePageFactory{
     public WebElement validationMessage(){
         return smartPlaylistNameField;
     }
+
+
 
     /** New Smart Playlist [ Group Criteria ] **/
 

@@ -1,3 +1,5 @@
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -34,6 +36,56 @@ public class PlaylistTests extends BaseTest{
     }
 
     @Test
+    public void createSmartPlaylistWith256Chars(){
+
+        String str_max_256_chars = "THIS_STRING_IS_256_CHARACTERS_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
+        LoginPageFactory loginPageFactory = new LoginPageFactory(driver);
+        HomePageFactory homePageFactory = new HomePageFactory(driver);
+        PlaylistPageFactory playlistPageFactory = new PlaylistPageFactory(driver);
+
+        loginPageFactory.inputEmail("marcello.ferraz.vieira@testpro.io")
+                .inputPassword("TestPro@123")
+                .clickSubmit();
+
+        WebElement avatarIcon = homePageFactory.avatar();
+        Assert.assertTrue(avatarIcon.isDisplayed());
+
+        playlistPageFactory.clickAddPlaylistButton();
+        playlistPageFactory.clickSmartPlaylistOption();
+        playlistPageFactory.inputSmartPlaylistName(str_max_256_chars);
+        playlistPageFactory.inputSmartPlaylistThirdCriteriaField("AKMV-18");
+        playlistPageFactory.clickSmartPlaylistSaveButton();
+
+        Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+    }
+
+    @Test
+    public void createSmartPlaylistWith1Char(){
+
+        String str_max_256_chars = "A";
+
+        LoginPageFactory loginPageFactory = new LoginPageFactory(driver);
+        HomePageFactory homePageFactory = new HomePageFactory(driver);
+        PlaylistPageFactory playlistPageFactory = new PlaylistPageFactory(driver);
+
+        loginPageFactory.inputEmail("marcello.ferraz.vieira@testpro.io")
+                .inputPassword("TestPro@123")
+                .clickSubmit();
+
+        WebElement avatarIcon = homePageFactory.avatar();
+        Assert.assertTrue(avatarIcon.isDisplayed());
+
+        playlistPageFactory.clickAddPlaylistButton();
+        playlistPageFactory.clickSmartPlaylistOption();
+        playlistPageFactory.inputSmartPlaylistName(str_max_256_chars);
+        playlistPageFactory.inputSmartPlaylistThirdCriteriaField("AKMV-18");
+        playlistPageFactory.clickSmartPlaylistSaveButton();
+
+        Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+    }
+
+    @Test
     public void createSmartPlaylistUsingGroup() throws InterruptedException {
         LoginPageFactory loginPageFactory = new LoginPageFactory(driver);
         HomePageFactory homePageFactory = new HomePageFactory(driver);
@@ -63,6 +115,29 @@ public class PlaylistTests extends BaseTest{
         playlistPageFactory.clickSmartPlaylistSaveButton();
 
         Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+    }
+
+    @Test
+    public void createEmptySmartPlaylist(){
+
+        LoginPageFactory loginPageFactory = new LoginPageFactory(driver);
+        HomePageFactory homePageFactory = new HomePageFactory(driver);
+        PlaylistPageFactory playlistPageFactory = new PlaylistPageFactory(driver);
+
+        loginPageFactory.inputEmail("marcello.ferraz.vieira@testpro.io")
+                .inputPassword("TestPro@123")
+                .clickSubmit();
+
+        WebElement avatarIcon = homePageFactory.avatar();
+        Assert.assertTrue(avatarIcon.isDisplayed());
+
+        playlistPageFactory.clickAddPlaylistButton();
+        playlistPageFactory.clickSmartPlaylistOption();
+        playlistPageFactory.clickSmartPlaylistSaveButton();
+
+        // Gets the Validation Message for a Required Field after submitted //
+        String validationMessage = playlistPageFactory.validationMessage().getAttribute("validationMessage");
+        Assert.assertEquals(validationMessage, "Please fill out this field.");
     }
 
     @Test

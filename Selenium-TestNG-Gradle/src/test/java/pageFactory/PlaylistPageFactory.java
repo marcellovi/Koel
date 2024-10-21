@@ -122,6 +122,10 @@ public class PlaylistPageFactory extends BasePageFactory{
         return this;
     }
 
+    public WebElement validationMessage(){
+        return smartPlaylistNameField;
+    }
+
     /** New Smart Playlist [ Group Criteria ] **/
 
     public PlaylistPageFactory clickSmartPlaylistGroupButton(){

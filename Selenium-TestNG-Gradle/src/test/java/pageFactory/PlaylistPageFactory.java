@@ -44,14 +44,32 @@ public class PlaylistPageFactory extends BasePageFactory{
     @FindBy(xpath = "//div[@class=\"alertify-logs top right\"]")
     WebElement smartPlaylistSuccessInfoMsg;
 
+    @FindBy(xpath = "//button[@class=\"remove-rule\"]")
+    WebElement smartPlayListRemoveButton;
+    /** New Smart Playlist [ Group Criteria ] **/
+
+    @FindBy(css = "button.btn-add-group")
+    WebElement smartPlaylistAddGroup;
+
+    @FindBy(xpath = "//div[@data-test=\"smart-playlist-rule-group\"][2]//select[@name=\"model[]\"]")
+    WebElement smartPlaylistFirstGroupCriteriaField;
+
+    @FindBy(xpath = "//div[@data-test=\"smart-playlist-rule-group\"][2]//select[@name=\"operator[]\"]")
+    WebElement smartPlaylistSecondGroupCriteriaField;
+
+    @FindBy(xpath = "//div[@data-test=\"smart-playlist-rule-group\"][2]//input[@name=\"value[]\"]")
+    WebElement smartPlaylistThirdGroupCriteriaField;
+
+
+
     public PlaylistPageFactory clickAddPlaylistButton(){
-        wait.until(ExpectedConditions.visibilityOf(btnPlusIcon)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(btnPlusIcon)).click();
         //btnPlusIcon.click();
         return this;
     }
 
     public PlaylistPageFactory clickSmartPlaylistOption(){
-        smartPlaylistMenuOption.click();
+        wait.until(ExpectedConditions.elementToBeClickable(smartPlaylistMenuOption)).click();
         return this;
     }
 
@@ -99,6 +117,35 @@ public class PlaylistPageFactory extends BasePageFactory{
         //return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"alertify-logs top right\"]")));
     }
 
+    public PlaylistPageFactory clickSmartPlaylistRemoveButton(){
+        wait.until(ExpectedConditions.elementToBeClickable(smartPlayListRemoveButton)).click();
+        return this;
+    }
+
+    /** New Smart Playlist [ Group Criteria ] **/
+
+    public PlaylistPageFactory clickSmartPlaylistGroupButton(){
+
+        smartPlaylistAddGroup.click();
+        return this;
+    }
+
+    public PlaylistPageFactory selectSmartPlaylistFirstGroupCriteria(String option){
+        Select select = new Select(smartPlaylistFirstGroupCriteriaField);
+        select.selectByVisibleText(option);
+        return this;
+    }
+
+    public PlaylistPageFactory selectSmartPlaylistSecondGroupCriteria(String option){
+        Select select = new Select(smartPlaylistSecondGroupCriteriaField);
+        select.selectByVisibleText(option);
+        return this;
+    }
+
+    public PlaylistPageFactory inputSmartPlaylistThirdGroupCriteriaField(String text){
+        smartPlaylistThirdGroupCriteriaField.sendKeys(text);
+        return this;
+    }
 
 
 

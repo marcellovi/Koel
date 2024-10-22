@@ -136,7 +136,6 @@ public class PlaylistPageFactory extends BasePageFactory{
     }
 
 
-
     /** New Smart Playlist [ Group Criteria ] **/
 
     public PlaylistPageFactory clickSmartPlaylistGroupButton(){
@@ -161,12 +160,6 @@ public class PlaylistPageFactory extends BasePageFactory{
         smartPlaylistThirdGroupCriteriaField.sendKeys(text);
         return this;
     }
-
-
-
-
-
-
 
 
 }

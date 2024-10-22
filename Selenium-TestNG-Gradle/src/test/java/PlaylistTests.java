@@ -1,6 +1,7 @@
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageFactory.HomePageFactory;
@@ -8,6 +9,7 @@ import pageFactory.LoginPageFactory;
 import pageFactory.PlaylistPageFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public class PlaylistTests extends BaseTest{
 
@@ -32,7 +34,13 @@ public class PlaylistTests extends BaseTest{
         playlistPageFactory.inputSmartPlaylistThirdCriteriaField("AKMV-18");
         playlistPageFactory.clickSmartPlaylistSaveButton();
 
+        // success message for creating playlist
         Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+
+        List<WebElement> listFound = driver.findElements(By.xpath("//div[@class=\"item-container\"]//td[contains(text(),'AKMV-18')]"));
+        System.out.println("Number of elements:" +listFound.size());
+        Assert.assertTrue(!listFound.isEmpty());
+
     }
 
     @Test
@@ -61,9 +69,9 @@ public class PlaylistTests extends BaseTest{
     }
 
     @Test
-    public void createSmartPlaylistWith256Chars(){
+    public void createSmartPlaylistWith300Chars(){
 
-        String str_max_256_chars = "THIS_STRING_IS_256_CHARACTERS_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        String str_max_256_chars = "THIS_STRING_IS_300_CHARACTERS_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx123";
 
         LoginPageFactory loginPageFactory = new LoginPageFactory(driver);
         HomePageFactory homePageFactory = new HomePageFactory(driver);
@@ -162,6 +170,10 @@ public class PlaylistTests extends BaseTest{
         playlistPageFactory.clickSmartPlaylistSaveButton();
 
         Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+
+        List<WebElement> listFound = driver.findElements(By.xpath("//div[@class=\"item-container\"]//td[contains(text(),'AKMV-18')]"));
+        System.out.println("Number of elements Using Artist AKMV-18 :" +listFound.size());
+        Assert.assertTrue(!listFound.isEmpty());
     }
 
 
@@ -191,5 +203,10 @@ public class PlaylistTests extends BaseTest{
                 .clickSmartPlaylistSaveButton();
 
         Assert.assertTrue(playlistPageFactory.sucessInfoMessage().isDisplayed());
+
+        List<WebElement> listFound = driver.findElements(By.xpath("//div[@class=\"item-container\"]//td[contains(text(),'Chevalerie EP')]"));
+        System.out.println("Number of elements Using Album Chevalerie EP :" +listFound.size());
+        Assert.assertTrue(!listFound.isEmpty());
+
     }
 }
